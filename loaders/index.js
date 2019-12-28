@@ -6,7 +6,6 @@ module.exports = {
   init: () => {
     const map = mapLoader.init(EASY);
     const vacuum = vacuumLoader.init(map);
-
     return { map, vacuum };
   }
 };

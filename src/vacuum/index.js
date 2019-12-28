@@ -3,7 +3,7 @@ module.exports = class Vacuum {
     this.map = map;
     this.x = 1;
     this.y = 1;
-    this.char = 'X';
+    this.char = '💩';
   }
 
   move(direction) {
