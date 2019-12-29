@@ -5,7 +5,7 @@ module.exports = class Map {
     this.map = map;
   }
 
-  isLegalPlace(x, y) {
+  isLegalPlace([x, y]) {
     return this.map[x][y] !== 'o';
   }
 
@@ -27,9 +27,6 @@ module.exports = class Map {
   }
 
   setChar(x, y, char) {
-    if (!this.isLegalPlace(x, y)) {
-      throw new BoundaryError(`Positon [${x}, ${y}] is illegal`);
-    }
     this.clearChar(char);
     this.map[x][y] = char;
   }

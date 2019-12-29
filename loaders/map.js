@@ -1,6 +1,7 @@
 const fs = require('fs');
 const WIDTH = 12;
 const Map = require('../src/map');
+
 const get = mapPath => {
   const map = fs
     .readFileSync(mapPath, 'utf-8')

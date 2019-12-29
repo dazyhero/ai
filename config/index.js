@@ -1,3 +1,3 @@
-module.exports = {
-  EASY: './maps/easy.txt'
-};
+const config = require('./maps');
+
+exports.get = key => config[key];
