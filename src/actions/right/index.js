@@ -1,3 +1,3 @@
 module.exports = {
-  perform: (x, y) => [++x, y]
+  perform: ([x, y]) => [++x, y]
 };

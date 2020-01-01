@@ -3,9 +3,10 @@ module.exports = class Vacuum {
     this.map = map;
     this.x = 1;
     this.y = 1;
-    this.char = '💩';
+    this.char = 'x';
     this.history = [];
     this.waiting = false;
+    this.moves = 0;
   }
 
   isWaiting() {
@@ -36,14 +37,21 @@ module.exports = class Vacuum {
     this.updateHistory([x, y]);
   }
 
-  move(action) {
-    const newPosition = action.perform(this.x, this.y);
-    if (!this.isRepiting(newPosition) && this.map.isLegalPlace(newPosition)) {
-      this.setWaiting(false);
-      this.map.setChar(this.x, this.y, this.char);
-      this.setPosition(newPosition);
-    } else {
-      this.setWaiting(true);
-    }
+  addMoves() {
+    ++this.moves;
+  }
+
+  move([x, y]) {
+    // const newPosition = action.perform(this.x, this.y);
+    this.map.setChar(x, y, this.char);
+    this.setPosition([x, y]);
+    // if (!this.isRepiting(newPosition) && this.map.isLegalPlace(newPosition)) {
+    //   this.addMoves();
+    //   this.setWaiting(false);
+    //   this.map.setChar(this.x, this.y, this.char);
+    //   this.setPosition(newPosition);
+    // } else {
+    //   this.setWaiting(true);
+    // }
   }
 };

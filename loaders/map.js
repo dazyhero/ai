@@ -17,6 +17,9 @@ module.exports = {
   init: level => {
     const map2d = get(level);
     const map = new Map(map2d);
+    const dirtCoords = map.getCharIndexes('#');
+    map.setDirtCoords(dirtCoords);
+    map.setDirt(dirtCoords.length);
     return map;
   }
 };
