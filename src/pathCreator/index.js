@@ -1,43 +1,26 @@
 module.exports = class PathCreator {
-  constructor(actions) {
+  constructor(actions, unavailablePoints) {
     this.actions = Object.values(actions);
-  }
-
-  getLength(pointA, pointB) {
-    const length =
-      // eslint-disable-next-line prettier/prettier
-    Math.sqrt(Math.pow((pointB[0] - pointA[0]), 2) + Math.pow((pointB[1] ** 2 - pointA[1] ** 2), 2));
-
-    return length;
+    this.unavailablePoints = unavailablePoints;
   }
 
   getSuccessors(point, to) {
     const open = [];
-    // console.dir({ point, to });
     for (let action of this.actions) {
-      // console.log(point, to);
       const newCoords = action.perform(point.coords);
-      if (
-        newCoords[0] >= 0 &&
-        newCoords[1] >= 0
-        // &&
-        // newCoords[0] <= 9 &&
-        // newCoords[1] <= 4
-      ) {
+      const unAvailable = this.unavailablePoints.filter(
+        x => x[0] === newCoords[0] && x[1] === newCoords[1]
+      );
+      if (unAvailable.length === 0) {
         const newPoint = {
           coords: newCoords,
           g: 0,
           h: 0,
           f: 0
         };
-        // const G_COST = this.getLength(newPoint.coords, point.coords);
-        // const H_COST = this.getLength(newPoint.coords, to);
         open.push({
           coords: newPoint.coords,
           parent: point
-          // g: point.g + G_COST,
-          // h: H_COST,
-          // f: G_COST + H_COST
         });
       }
     }
@@ -75,8 +58,6 @@ module.exports = class PathCreator {
 
       const successors = this.getSuccessors(current, to);
 
-      // console.log(successors);
-
       successors.forEach(n => {
         for (let node of closed) {
           if (
@@ -86,9 +67,6 @@ module.exports = class PathCreator {
             return;
           }
         }
-        // if (closed.indexOf(n) !== -1) {
-        //   return;
-        // }
         n.g = current.g + 1;
         n.h = (n.coords[0] - to[0]) ** 2 + (n.coords[1] - to[1]) ** 2;
         n.f = n.g + n.h;
@@ -106,30 +84,5 @@ module.exports = class PathCreator {
         open.push(n);
       });
     }
-
-    // if (current[0] === to) return;
-
-    // for (let node of open) {
-    // }
-
-    // const current =
-    // const current =
-    // let prevLenght = this.getLength(from, to);
-    // const actions = [];
-    // let newFrom = from;
-    // while (newFrom !== to) {
-    //   for (let action of this.actions) {
-    //     const newCoord = action.perform(newFrom);
-    //     const newLength = this.getLength(newCoord, to);
-
-    //     if (newLength < prevLenght) {
-    //       console.log(newCoord, to);
-    //       actions.push(action);
-    //       newFrom = newCoord;
-    //     }
-    //   }
-    // }
-
-    // console.log(actions);
   }
 };
