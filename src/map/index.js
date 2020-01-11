@@ -3,6 +3,7 @@ module.exports = class Map {
     this.map = map;
     this.dirt = 0;
     this.dirtCoords = [];
+    this.dirtAmmount = 0;
   }
 
   isLegalPlace([x, y]) {
@@ -11,6 +12,10 @@ module.exports = class Map {
 
   setDirtCoords(coords) {
     this.dirtCoords = coords;
+  }
+
+  setDirtAmmount(ammount) {
+    this.dirtAmmount = ammount;
   }
 
   removeDirtCoords([x, y]) {
@@ -41,7 +46,9 @@ module.exports = class Map {
     let index = [undefined, undefined];
     for (let i = 1; i < this.map.length; i++) {
       for (let j = 1; j < this.map[i].length; j++) {
-        if (this.map[i][j] === char) index = [i, j];
+        if (this.map[i][j] === char) {
+          index = [i, j];
+        }
       }
     }
     return index;
@@ -56,6 +63,10 @@ module.exports = class Map {
     if (x && y) {
       this.map[x][y] = '-';
     }
+  }
+
+  setDirtChar(x, y) {
+    this.map[x][y] = '#';
   }
 
   setChar(x, y, char) {

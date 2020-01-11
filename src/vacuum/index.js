@@ -41,6 +41,16 @@ module.exports = class Vacuum {
     ++this.moves;
   }
 
+  performAction(action) {
+    const newPosition = action.perform([this.x, this.y]);
+    if (this.map.isLegalPlace(newPosition)) {
+      this.addMoves();
+      this.setWaiting(false);
+      this.map.setChar(this.x, this.y, this.char);
+      this.setPosition(newPosition);
+    }
+  }
+
   move([x, y]) {
     // const newPosition = action.perform(this.x, this.y);
     this.map.setChar(x, y, this.char);

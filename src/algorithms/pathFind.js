@@ -7,7 +7,7 @@ module.exports = class PathFind {
   getLength(pointA, pointB) {
     const length =
       // eslint-disable-next-line prettier/prettier
-      Math.sqrt(Math.pow((pointB[0] - pointA[0]), 2) + Math.pow((pointB[1] ** 2 - pointA[1] ** 2), 2));
+      Math.sqrt(Math.pow((pointB[0] - pointA[0]), 2) + Math.pow((pointB[1] - pointA[1]), 2));
 
     return length;
   }
@@ -15,9 +15,10 @@ module.exports = class PathFind {
   getPath(fromPoint) {
     let closestPoint = [undefined, undefined];
     if (this.dirtCoords.length !== 0) {
-      let length = 1000;
+      let length = 1000000;
       this.dirtCoords.forEach(point => {
         const curLength = this.getLength(fromPoint, point);
+
         if (curLength < length) {
           closestPoint = point;
           length = curLength;

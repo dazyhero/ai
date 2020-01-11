@@ -1,32 +1,51 @@
 const loader = require('./loaders');
 const chalk = require('chalk');
 const actions = require('./src/actions');
-const { vacuum, map, logger, path } = loader.init();
+const Reader = require('./src/logger/reader');
+const sleep = async () => new Promise(resolve => setTimeout(resolve, 0));
 
-const sleep = async () => new Promise(resolve => setTimeout(resolve, 500));
+const pathFind = async () => {
+  for (let i = 0; i < 100; i++) {
+    const startTime = new Date().getTime();
+
+    const { vacuum, logger, path } = loader.init();
+    for (let moves of path) {
+      // console.clear();
+      vacuum.move(moves);
+      // logger.log();
+      await sleep();
+    }
+    const endTime = new Date().getTime();
+    const computeTime = endTime - startTime;
+    logger.writeLog('pathFind', i, computeTime);
+  }
+  const reader = new Reader('./logs/pathFind.json');
+  await reader.read();
+};
+
+const random = async () => {
+  for (let i = 0; i <= 100; i++) {
+    const startTime = new Date().getTime();
+    const { vacuum, logger } = loader.init();
+    for (let i = 0; i <= 100; i++) {
+      const actionMoves = Object.values(actions);
+      const randomMove = Math.floor(Math.random() * (actionMoves.length - 1));
+      // console.clear();
+      vacuum.performAction(actionMoves[randomMove]);
+      // logger.log();
+      await sleep();
+    }
+    const endTime = new Date().getTime();
+    const computeTime = endTime - startTime;
+    logger.writeLog('random', i, computeTime);
+  }
+  const reader = new Reader('./logs/random.json');
+  await reader.read();
+};
 
 const main = async () => {
-  // path.filter(x => x !== undefined);
-  for (let moves of path) {
-    console.clear();
-    vacuum.move(moves);
-    logger.log();
-    await sleep();
-  }
-  // for (let i = 0; i < 1000; i++) {
-  //   console.clear();
-  //   try {
-  //     console.clear();
-  //     // const rndActionIndex = Math.floor(Math.random() * 4);
-  //     // const rndAction = Object.values(actions)[rndActionIndex];
-  //     // vacuum.move(rndAction);
-  //     // logger.log();
-  //     // if (!vacuum.isWaiting()) await sleep();
-  //   } catch (e) {
-  //     console.log(e);
-  //     process.exit(1);
-  //   }
-  // }
+  await pathFind();
+  await random();
 };
 
 main();
