@@ -8,6 +8,7 @@ const pathFind = async () => {
   for (let i = 0; i < 100; i++) {
     const startTime = new Date().getTime();
 
+<<<<<<< HEAD
     const { vacuum, logger, path } = loader.init();
     for (let moves of path) {
       // console.clear();
@@ -46,6 +47,15 @@ const random = async () => {
 const main = async () => {
   await pathFind();
   await random();
+=======
+const main = async () => {
+  for (let moves of path) {
+    console.clear();
+    vacuum.move(moves);
+    logger.log();
+    await sleep();
+  }
+>>>>>>> 54d2c6a31ac71a1255c33793b685b18feef5e92e
 };
 
 main();

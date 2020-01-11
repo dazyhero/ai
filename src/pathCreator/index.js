@@ -1,20 +1,34 @@
 module.exports = class PathCreator {
-  constructor(actions) {
+  constructor(actions, unavailablePoints) {
     this.actions = Object.values(actions);
+<<<<<<< HEAD
+=======
+    this.unavailablePoints = unavailablePoints;
+>>>>>>> 54d2c6a31ac71a1255c33793b685b18feef5e92e
   }
 
   getSuccessors(point, to) {
     const open = [];
     for (let action of this.actions) {
       const newCoords = action.perform(point.coords);
+<<<<<<< HEAD
       if (newCoords[0] >= 0 && newCoords[1] >= 0) {
+=======
+      const unAvailable = this.unavailablePoints.filter(
+        x => x[0] === newCoords[0] && x[1] === newCoords[1]
+      );
+      if (unAvailable.length === 0) {
+>>>>>>> 54d2c6a31ac71a1255c33793b685b18feef5e92e
         const newPoint = {
           coords: newCoords,
           g: 0,
           h: 0,
           f: 0
         };
+<<<<<<< HEAD
 
+=======
+>>>>>>> 54d2c6a31ac71a1255c33793b685b18feef5e92e
         open.push({
           coords: newPoint.coords,
           parent: point
