@@ -1,14 +1,7 @@
 oooooooooooo
 o----------o
-<<<<<<< HEAD
 o----o--oooo
 oooooo--o--o
 o-------o--o
 o----o-----o
-=======
-ooo--oooo--o
-o--#-o-----o
-oooooo-ooooo
-o-------#--o
->>>>>>> 54d2c6a31ac71a1255c33793b685b18feef5e92e
 oooooooooooo

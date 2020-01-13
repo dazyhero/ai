@@ -1,34 +1,19 @@
 module.exports = class PathCreator {
   constructor(actions, unavailablePoints) {
     this.actions = Object.values(actions);
-<<<<<<< HEAD
-=======
-    this.unavailablePoints = unavailablePoints;
->>>>>>> 54d2c6a31ac71a1255c33793b685b18feef5e92e
   }
 
   getSuccessors(point, to) {
     const open = [];
     for (let action of this.actions) {
       const newCoords = action.perform(point.coords);
-<<<<<<< HEAD
       if (newCoords[0] >= 0 && newCoords[1] >= 0) {
-=======
-      const unAvailable = this.unavailablePoints.filter(
-        x => x[0] === newCoords[0] && x[1] === newCoords[1]
-      );
-      if (unAvailable.length === 0) {
->>>>>>> 54d2c6a31ac71a1255c33793b685b18feef5e92e
         const newPoint = {
           coords: newCoords,
           g: 0,
           h: 0,
           f: 0
         };
-<<<<<<< HEAD
-
-=======
->>>>>>> 54d2c6a31ac71a1255c33793b685b18feef5e92e
         open.push({
           coords: newPoint.coords,
           parent: point
@@ -49,7 +34,8 @@ module.exports = class PathCreator {
       }
     ];
     const closed = [];
-
+    let maxNodes = 0;
+    let nodes = 0;
     while (open.length > 0) {
       let current = open.sort((a, b) => a.f - b.f)[0];
 
@@ -58,13 +44,16 @@ module.exports = class PathCreator {
       closed.push(toClose);
 
       const path = [];
-
+      if (open.length + closed.length > maxNodes) {
+        maxNodes = open.length + closed.length;
+      }
+      nodes += open.length + closed.length;
       if (current.coords[0] === to[0] && current.coords[1] === to[1]) {
         while (current.parent) {
           path.push(current.coords);
           current = current.parent;
         }
-        return path.reverse();
+        return { path: path.reverse(), maxNodes, nodes };
       }
 
       const successors = this.getSuccessors(current, to);

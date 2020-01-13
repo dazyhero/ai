@@ -9,8 +9,8 @@ module.exports = class GenerateDirt {
     let repeated = false;
     for (let i = 0; i < ammount; i++) {
       const randomCoords = [
-        Math.floor(Math.random() * 5) + 1,
-        Math.floor(Math.random() * 10) + 1
+        Math.floor(Math.random() * this.map.map.length),
+        Math.floor(Math.random() * this.map.map[0].length)
       ];
       coords.forEach(x => {
         if (
